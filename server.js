@@ -20,6 +20,27 @@ app.get("/roll/:number", (req, res) => {
   res.send(`You rolled a ${roll}.`);
 });
 
+// 3. I Want THAT One!
+
+const collectibles = [
+  { name: "shiny ball", price: 5.95 },
+  { name: "autographed picture of a dog", price: 10 },
+  { name: "vintage 1970s yogurt SOLD AS-IS", price: 0.99 },
+];
+
+app.get("/collectibles/:index", (req, res) => {
+
+  const index = Number(req.params.index);
+
+  if (isNaN(index) || index < 0 || index > collectibles.length - 1) {
+    return res.send("This item is not yet in stock. Check back soon!");
+  }
+
+  const item = collectibles[index];
+  res.send(`So, you want the ${item.name}? For ${item.price}, it can be yours!`)
+  
+});
+
 app.listen(3000, () => {
   console.log("Listening to port 3000");
 });
